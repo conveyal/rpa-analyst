@@ -1,0 +1,34 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>@title</title>      
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/d3.slider.css")" />
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/style.css")" />
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/grepgograph.css")" />
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic|Bitter' rel='stylesheet' type='text/css'>
+
+    <!-- TODO: use some JS package system (bower + grunt), to package and minify used libraries -->
+    <script src="@routes.Assets.at("javascripts/vis/d3.v3.min.js")" charset="utf-8"></script>
+    <script src="@routes.Assets.at("javascripts/vis/LocationLayer.js")"></script>
+    <script src="@routes.Assets.at("javascripts/vis/GrepgoLayer.js")"></script>
+    <script src="@routes.Assets.at("javascripts/vis/GrepgoGraph.js")"></script>
+    <script src="@routes.Assets.at("javascripts/vis/GrepgoGraphCircle.js")"></script>
+    <script src="@routes.Assets.at("javascripts/vis/GrepgoGraphBar.js")"></script>
+    <script src="@routes.Assets.at("javascripts/vis/GrepgoGraphTable.js")"></script>
+    <script src="@routes.Assets.at("javascripts/vis/GrepgoGraphTreemap.js")"></script>    
+    <script src="@routes.Assets.at("javascripts/vis/d3.slider.js")"></script>
+  </head>
+  <body>
+    @content
+  </body>
+</html>

@@ -1,0 +1,22 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /	                       controllers.Application.rpa_jobs()
+GET     /jobs                      controllers.Application.rpa_jobs()
+
+GET     /workforce                 controllers.Application.rpa_workforce()
+
+GET     /api/spt                    controllers.Api.spt(lat:Double, lon:Double, mode:String)
+GET     /api/indicator              controllers.Api.indicator(sptId:String, indicatorId: String, timeLimit:Integer)
+
+GET     /api/tile                   controllers.Api.tile(sptId:String, indicatorId: String, timeLimit:Integer, x:Integer, y:Integer, z:Integer, hiddenAttributes:String)
+
+GET     /api/metadata               controllers.Api.metadata()
+GET		/api/indicatorMetadata		controllers.Api.indicatorMetadata()		
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+OPTIONS	/*file						controllers.Application.options(file)

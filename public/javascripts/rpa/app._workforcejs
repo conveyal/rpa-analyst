@@ -1,0 +1,144 @@
+
+	var map = L.map('jobAccess').setView([40.7155, -73.9582], 12);
+    
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/conveyal.hml987j0/{z}/{x}/{y}.png', {
+      maxZoom: 18
+    }).addTo(map);
+    
+    
+    var metadata;
+    
+    var metadatUrl = jsRoutes.controllers.Api.indicatorMetadata();
+
+    $.getJSON(metadatUrl.url, function(data) {
+
+    	metadata = data;
+    	
+    	$('#type_indicators').html(type_template((metadata)));
+    	$('#edu_indicators').html(edu_template((metadata)));
+    	
+    	loadSpt();
+    	
+    });
+        
+    var timeSlider;
+    var tileOverlay;
+    
+    var sptId;
+    
+    var timeLimit = 3600;
+    var mapIndicatorId = "workforce_type";
+    var mode = "TRANSIT"
+ 
+  
+    var marker = new L.marker([40.7155, -73.9582], {draggable:'true'});
+        
+    marker.on('dragend', function(event){
+        
+    	loadSpt();
+    	
+   });
+      
+   map.addLayer(marker);
+  
+  function loadSpt() {
+	  
+	  var sptUrl = jsRoutes.controllers.Api.spt(marker.getLatLng().lat, marker.getLatLng().lng, mode);
+      $.getJSON(sptUrl.url, function(data) {
+    	 
+    	  sptId = data.sptId;
+    	  loadData(); 
+      });	  
+  }
+  
+  function loadData() {
+	  
+	  timeLimit = timeSlider.getValue() * 60;
+	  
+	  if(sptId == undefined || sptId == '')
+		  return;
+	  
+	  var indicatorUrl = jsRoutes.controllers.Api.indicator(sptId, "workforce_type,workforce_edu", timeLimit);
+
+      $.getJSON(indicatorUrl.url, function(data) {
+
+    	  var i = 0;
+         for(i in data['indicators']) {
+        	 if(data['indicators'][i]['id'] == "workforce_type" || data['indicators'][i]['id'] == "workforce_edu") {
+        		 
+        		 var a = 0;
+        		 for(a in data['indicators'][i]['attributes']) {
+        			 
+        			 var attributeId = data['indicators'][i]['attributes'][a]['id'];
+        			 var total  = data['indicators'][i]['attributes'][a]['total'];
+        			 
+        			 $('#stats_' + attributeId).html(numberWithCommas(total));
+        			 
+        		 }
+        	 }
+         }
+
+      });
+      
+	if(tileOverlay && map.hasLayer(tileOverlay))
+		map.removeLayer(tileOverlay);
+			
+      // add an OpenStreetMap tile layer
+      tileOverlay = L.tileLayer('/api/tile?z={z}&x={x}&y={y}&&indicatorId=' + mapIndicatorId + '&timeLimit=' + timeLimit + '&sptId=' + sptId , {
+          attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+  }  
+  
+  $( "#mapType" ).on( "click", function(evt) {
+	  mapIndicatorId = "workforce_type"
+	  $('#mapType').addClass('active');
+	  $('#mapEdu').removeClass('active');
+	  $('#type_indicators').show();
+	  $('#edu_indicators').hide();
+	  loadData();
+	});
+  
+  
+  $( "#mapEdu" ).on( "click", function(evt) {
+	  mapIndicatorId = "workforce_edu";
+	  $('#mapEdu').addClass('active');
+	  $('#mapType').removeClass('active');
+	  $('#type_indicators').hide();
+	  $('#edu_indicators').show();
+	  loadData();
+	});
+  
+  $('input[name=options]:radio').on('change', function(event) {
+	  mode = $('input:radio[name=options]:checked').val();
+	  loadSpt();
+  });
+  
+  
+  timeSlider = $('#timeSlider1').slider({
+		formater: function(value) {
+			$('#timeLimitValue').html(value + " mins");
+			return value + " minutes";
+		}
+	}).on('slideStop', function(value) {
+		
+		loadData();
+	}).data('slider');
+  
+  $('#mapType').addClass('active');
+  $('#modeBus').addClass('active');
+  
+ 
+  var source  = $("#jobs-type-indicator-template").html();
+  var type_template = Handlebars.compile(source);
+  
+  source   = $("#jobs-edu-indicator-template").html();
+  var edu_template = Handlebars.compile(source);
+  
+  $('#edu_indicators').hide();
+  
+  $('#modeBus').prop('checked', true);
+  
+  function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+ 

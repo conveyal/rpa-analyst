@@ -1,0 +1,34 @@
+.grepgo-graph {
+  
+}
+
+.grepgo-graph-table {
+  font-size: 14px;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.grepgo-graph-table td {
+  vertical-align: center;
+  padding: 2px;
+}
+
+.grepgo-graph-table td.grepgo-graph-table-row-value,
+.grepgo-graph-table td.grepgo-graph-table-row-percentage {
+  text-align: right;
+}
+
+.grepgo-graph-table td.grepgo-graph-table-row-value {
+  width: 50px;
+}
+
+.grepgo-graph-table td.grepgo-graph-table-row-percentage {
+  color: #999;
+  width: 42px;
+}  
+
+.grepgo-graph-table td.grepgo-graph-table-row-color div {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
