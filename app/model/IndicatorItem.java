@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.geotools.geometry.jts.JTSFactoryFinder;
 import org.opentripplanner.analyst.core.Sample;
 
@@ -12,6 +13,7 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.MultiPoint;
 import com.vividsolutions.jts.geom.Point;
 
+@JsonIgnoreProperties(ignoreUnknown = true) 
 public class IndicatorItem implements Comparable<IndicatorItem> {
 	
 	static GeometryFactory geometryFactory = JTSFactoryFinder.getGeometryFactory(null);
