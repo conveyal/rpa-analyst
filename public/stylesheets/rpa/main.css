@@ -6705,6 +6705,12 @@ indicators .btn-group {
 	font-weight: 900;
 }
 
+#total_workforce {
+	font-size: 200%;
+	color: #444444;
+	font-weight: 900;
+}
+
 
 .disabled-item .colorbox {   
     background-color: rgba(0,0,0,0.0) !important;

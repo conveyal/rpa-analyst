@@ -88,7 +88,7 @@ $(document).ready(function() {
     	
     	$('#downloadData').on("click", saveCsv);
 
-    	$('#allJobs').on("click", toggleAllJobs);
+    	$('#allWorkforce').on("click", toggleAllWorkforce);
     	
     	$(".legend-item").on( "click", function(evt) {
     		 
@@ -188,7 +188,7 @@ function loadData() {
   	if(showAll)
   		sptQuery = 'all';
 
-    var indicatorUrl = jsRoutes.controllers.Api.indicator(sptQuery, "jobs_type,jobs_edu", timeLimit);
+    var indicatorUrl = jsRoutes.controllers.Api.indicator(sptQuery, "workforce_type,workforce_edu", timeLimit);
 
 	$.getJSON(indicatorUrl.url, function(data) {
 		
@@ -220,13 +220,13 @@ function updateStats() {
 	 
      for(i in indicatorData['indicators']) {
     	 
-    	 if(indicatorData['indicators'][i]['id'] == "jobs_type" || indicatorData['indicators'][i]['id'] == "jobs_edu") {
+    	 if(indicatorData['indicators'][i]['id'] == "workforce_type" || indicatorData['indicators'][i]['id'] == "workforce_edu") {
 
     		 var a = 0;
     
     		 var total = 0;
     		 
-    		 if(mapIndicatorId == "jobs_edu")
+    		 if(mapIndicatorId == "workforce_edu")
     			 $('#total_asterisks').show();
     		 else
     			 $('#total_asterisks').hide();
@@ -248,7 +248,7 @@ function updateStats() {
     		 total = Math.round(total / 1000) * 1000;
     		 
     		 if(mapIndicatorId == indicatorData['indicators'][i]['id'])
-    		 $('#total_jobs').html(numberWithCommas(total));
+    		 $('#total_workforce').html(numberWithCommas(total));
     	 }
      }
 }
@@ -291,7 +291,7 @@ function numberWithCommas(x) {
 	return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function toggleAllJobs(evt) {
+function toggleAllWorkforce(evt) {
 
 	
 	if(showAll) {
@@ -317,10 +317,10 @@ function saveCsv(evt) {
 	
 	var jobTypeData = {};
 	
-	for(var i in metadata['jobs_type']) {
+	for(var i in metadata['workforce_type']) {
 		
-		var id = metadata['jobs_type'][i]['id'];
-		var name = metadata['jobs_type'][i]['name'];
+		var id = metadata['workforce_type'][i]['id'];
+		var name = metadata['workforce_type'][i]['name'];
 		
 		jobTypeData[id] = {};
 		jobTypeData[id]['name'] = name;
@@ -328,10 +328,10 @@ function saveCsv(evt) {
 	
 	var jobEduData = {};
 	
-	for(var i in metadata['jobs_edu']) {
+	for(var i in metadata['workforce_edu']) {
 		
-		var id = metadata['jobs_edu'][i]['id'];
-		var name = metadata['jobs_edu'][i]['name'];
+		var id = metadata['workforce_edu'][i]['id'];
+		var name = metadata['workforce_edu'][i]['name'];
 		
 		jobEduData[id] = {};
 		jobEduData[id]['name'] = name;
@@ -339,14 +339,14 @@ function saveCsv(evt) {
 	
 	for(i in indicatorData['indicators']) {
 		for(a in indicatorData['indicators'][i]['attributes']) {
-			if(indicatorData['indicators'][i]['id'] == "jobs_type") {
+			if(indicatorData['indicators'][i]['id'] == "workforce_type") {
 				
 				var attributeId = indicatorData['indicators'][i]['attributes'][a]['id'];
     			var subtotal  =  Math.round( indicatorData['indicators'][i]['attributes'][a]['total'] / 1000) * 1000;
     			
 				jobTypeData[attributeId]['value'] = subtotal;
 			}
-			else if(indicatorData['indicators'][i]['id'] == "jobs_edu") {
+			else if(indicatorData['indicators'][i]['id'] == "workforce_edu") {
 				
 				var attributeId = indicatorData['indicators'][i]['attributes'][a]['id'];
     			var subtotal  =  Math.round( indicatorData['indicators'][i]['attributes'][a]['total'] / 1000) * 1000;
@@ -377,7 +377,7 @@ function saveCsv(evt) {
 	}	
 
 	if(showAll)
-		lines.push(['All jobs in region'])
+		lines.push(['All workforce in region'])
 	else {
 		lines.push(['mode','max travel time','lat','lon' ])
 		lines.push([mode,timeSlider.getValue(),marker.getLatLng().lat,marker.getLatLng().lng])

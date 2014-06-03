@@ -123,8 +123,8 @@ public class Analyst {
 			indicators.loadJson(new File("data/indicators/jobs_type.json"), blocks);
 			indicators.loadJson(new File("data/indicators/workforce_type.json"), blocks);
 			
-			indicators.loadJson(new File("data/indicators/jobs_education.json"), blocks);
-			indicators.loadJson(new File("data/indicators/workforce_education.json"), blocks);
+			indicators.loadJson(new File("data/indicators/jobs_edu.json"), blocks);
+			indicators.loadJson(new File("data/indicators/workforce_edu.json"), blocks);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
