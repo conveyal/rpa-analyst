@@ -24,7 +24,12 @@ var marker, map;
 
 $(document).ready(function() {
 	
-    marker = new L.marker(mapCenter, {draggable:'true'});
+	var markerIcon = new L.Icon.Default();
+	
+	markerIcon.options.iconUrl = "assets/images/green-marker-icon.png";
+	markerIcon.options.iconRetinaUrl = "assets/images/green-marker-icon-2x.png";
+	
+    marker = new L.marker(mapCenter, {icon: markerIcon, draggable:'true'});
 
 	map = L.map('jobAccess', {scrollWheelZoom: false, minZoom: 8, maxZoom: 15,}).setView(mapCenter, 11);
 
