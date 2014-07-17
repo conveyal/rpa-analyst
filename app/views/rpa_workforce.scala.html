@@ -63,7 +63,10 @@
 									    <input type="radio" name="options" id="modeCar" value="CAR"><span class="icon icon-car"></span>
 									  </label>
 									  <label class="btn btn-default active">
-									    <input type="radio" name="options" id="modeBus" value="TRANSIT"><span class="icon icon-pedestrian"></span> + <span class="icon icon-bus"></span>
+									    <input type="radio" name="options" id="modeBus" value="TRANSIT"><span class="icon icon-bus"></span>
+									  </label>
+									  <label class="btn btn-default">
+									    <input type="radio" name="options" id="modeBus" value="CAR,TRANSIT,WALK"><span class="icon icon-car"></span> + <span class="icon icon-bus"></span>
 									  </label>
 									  <label class="btn btn-default">
 									    <input type="radio" name="options" id="modeBike" value="BIKE"><span class="icon icon-bike"></span>
@@ -168,7 +171,7 @@
 				
 				<h4>Data Sources</h4>
 
-				<p>The tool utilizes the US Census’ <a href="http://lehd.ces.census.gov/data/">LEHD Origin-Destination Employment Statistics</a> data set to measure jobs. The data set categorizes workplace and workforce characteristics at a block-level.</p>
+				<p>The tool utilizes the US Census’ <a href="http://lehd.ces.census.gov/data/">LEHD Origin-Destination Employment Statistics</a> data set for 2011 to measure jobs. The data set categorizes workplace and workforce characteristics at a block-level.</p>
 				
 				<p>Public transit travel times are calculated using publicly-available data sets in the <a href="https://developers.google.com/transit/gtfs/reference?csw=1">GTFS</a> format. These data sets contain schedules and timetables for most public transport service within the New York metro region.</p>
 				
