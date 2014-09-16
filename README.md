@@ -1,4 +1,4 @@
 rpa-analyst
 ===========
 
-rpa job access server
+See https://github.com/RegionalPlan/rpa-analyst
